@@ -1,23 +1,35 @@
-﻿namespace Mijuego;
+namespace Mijuego;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    int puntos = 0;
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    public MainPage()
+    {
+        InitializeComponent();
+    }
 
-	private void OnCounterClicked(object? sender, EventArgs e)
-	{
-		count++;
+    private void OnJugarClicked(object sender, EventArgs e)
+    {
+        puntos++;
+        PuntosLabel.Text = $"Puntos: {puntos}";
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+        int nivel = (puntos / 10) + 1;
+        NivelLabel.Text = $"Nivel: {nivel}";
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+        if (puntos == 10)
+            JugarBtn.Text = "¡VAS BIEN!";
+        else if (puntos == 20)
+            JugarBtn.Text = "¡ERES UNA BESTIA!";
+        else if (puntos == 50)
+            JugarBtn.Text = "¡IMPARABLE!";
+    }
+
+    private void OnReiniciarClicked(object sender, EventArgs e)
+    {
+        puntos = 0;
+        PuntosLabel.Text = "Puntos: 0";
+        NivelLabel.Text = "Nivel: 1";
+        JugarBtn.Text = "¡TOCAME!";
+    }
 }
