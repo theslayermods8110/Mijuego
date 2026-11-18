@@ -1,0 +1,18 @@
+name: Build APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '8.0.x' }
+      - name: Crear proyecto solo
+        run: |
+          dotnet workload install maui-android
+          dotnet new maui -n Mijuego -o .
+          dotnet restore
+      - name: Compilar APK
+        run: dotnet publish -f net8.0-android -c Release -o ./apk
+      - uses: actions/upload-artifact@v4
+        with: { name: Mijuego-APK, path: ./apk/*.apk }
