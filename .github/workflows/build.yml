@@ -10,7 +10,7 @@ jobs:
       - name: Crear proyecto solo
         run: |
           dotnet workload install maui-android
-          dotnet new maui -n Mijuego -o .
+          dotnet new maui -n Mijuego -o . --force
           dotnet restore
       - name: Compilar APK
         run: dotnet publish -f net8.0-android -c Release -o ./apk
